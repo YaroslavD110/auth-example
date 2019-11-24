@@ -45,4 +45,9 @@ export class UserService {
       }
     }
   }
+
+  async checkEmailUnique(email: string) {
+    const numberOfUsers = await this.userRepository.count({ where: { email } });
+    return numberOfUsers === 0;
+  }
 }
