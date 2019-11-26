@@ -6,17 +6,17 @@ import {
   Unique,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity('session')
-@Unique(['refreshToken', 'fingerprint'])
+@Unique(['refreshToken'])
 export class Session {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => User)
+  @ManyToOne(type => User)
   @JoinColumn()
   user: User;
 
@@ -31,9 +31,6 @@ export class Session {
 
   @Column()
   userAgent: string;
-
-  @Column()
-  fingerprint: string;
 
   @Column('bigint')
   expiresIn: number;
