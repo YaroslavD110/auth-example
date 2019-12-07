@@ -27,7 +27,7 @@ export class Session {
   refreshToken: string;
 
   @Column()
-  clientIp: string;
+  fingerprint: string;
 
   @Column()
   userAgent: string;

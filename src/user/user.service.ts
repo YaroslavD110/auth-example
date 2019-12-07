@@ -1,4 +1,5 @@
-import { SignUpDTO } from '../auth/tdo/signup.dto';
+import { ConfigService } from './../config/config.service';
+import { SignUpDTO } from '../auth/dto/signup.dto';
 import { User } from './user.entity';
 import {
   Injectable,
@@ -16,6 +17,7 @@ export class UserService {
   private manager = getManager();
 
   constructor(
+    private readonly configService: ConfigService,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
@@ -27,7 +29,9 @@ export class UserService {
     user.username = signUpDTO.username;
 
     try {
-      user.salt = await genSalt(10);
+      user.salt = await genSalt(
+        parseInt(this.configService.get('SALT_LENGTH')),
+      );
       user.password = await hash(signUpDTO.password, user.salt);
 
       await this.manager.save(user);

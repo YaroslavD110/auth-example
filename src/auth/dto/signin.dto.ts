@@ -6,4 +6,7 @@ export class SignInDTO {
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  fingerprint: string;
 }

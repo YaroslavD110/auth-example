@@ -7,7 +7,7 @@ import { ApplicationModule } from './app.module';
   const logger = new Logger('Bootstrap');
 
   try {
-    const port = 3000;
+    const port = process.env.PORT || 3001;
     const app = await NestFactory.create(ApplicationModule);
 
     app.setGlobalPrefix('api');
@@ -15,8 +15,8 @@ import { ApplicationModule } from './app.module';
 
     await app.listen(port);
 
-    logger.log(`Server is running on port ${port}`);
+    logger.log(`> Server is running on port ${port}`);
   } catch (error) {
-    logger.error('Filed to startup the Server!', error.trace);
+    logger.error('> Filed to startup the Server!', error.trace);
   }
 })();
